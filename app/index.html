@@ -35,7 +35,7 @@
          * Connect to goinstant
          * returns promise and fires callback
          */
-        goConnect.connect(function() {
+        goConnect.go(function() {
           alert('connected! look at console to see data');
         })
         .then(function(res) {
