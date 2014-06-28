@@ -26,12 +26,11 @@
         var goConnect = document.querySelector('go-connect');
 
         // call connect from api
-        goConnect.connect()
-          .then(function(res) {
-            goConnect.getAllData(res, '/test', function(data) {
-              console.log(data);
-            });
+        goConnect.connect().then(function(res) {
+          goConnect.getAllData(res, '/test', function(data) {
+            console.log(data);
           });
+        });
       });
     </script>
   </body>

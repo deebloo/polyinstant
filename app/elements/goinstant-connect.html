@@ -50,9 +50,7 @@
        * Add new data to specified key
        * Requires connection promise results, key name and value to be saved
        */
-      addData: function(con, roomKey, val) {
-        var that = this;
-
+      addData: function(con, roomKey, val, callback) {
         var key = con.rooms[0].key(roomKey);
 
         key.add(val, function(err, newValue) {
@@ -62,7 +60,9 @@
             return err;
           }
 
-          that.getAllData(con, roomKey);
+          if(callback) {
+            callback(newValue);
+          }
 
           return newValue;
         });
