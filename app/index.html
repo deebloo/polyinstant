@@ -22,11 +22,16 @@
     <script src="https://cdn.goinstant.net/v1/platform.min.js"></script>
     <script>
       window.addEventListener('polymer-ready', function(e) {
+        // Get reference of the connection element
         var goConnect = document.querySelector('go-connect');
 
-        goConnect.connect().then(function(res) {
-          goConnect.addData(res, '/test', 'Sony');
-        });
+        // call connect from api
+        goConnect.connect()
+          // promise is returned
+          .then(function(res) {
+            // call addData to add to the specified key
+            goConnect.addData(res, '/test', 'Sony');
+          });
       });
     </script>
   </body>
