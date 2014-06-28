@@ -24,6 +24,11 @@
        * Requires connection promise result and key name
        */
       getAllData: function(con, roomKey, callback) {
+        if(!con || !roomKey) {
+          console.error('ERR: connection object and roomKey name is required');
+          return;
+        }
+
         var key = con.rooms[0].key(roomKey);
 
         key.get(function(err, value) {
