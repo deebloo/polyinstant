@@ -1,0 +1,61 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="goinstant-connect.html">
+
+<polymer-element name="go-data" extends="go-connect" attributes="key">
+  <template></template>
+
+  <script>
+    Polymer('go-data', {
+      // Placeholders for account and app ids
+      key: null,
+
+      // Get specified key
+      _getKey: function(con) {
+        return con.rooms[0].key(this.key);
+      },
+
+      /*
+       * Get all data from specified key
+       * Requires connection promise result and key name
+       */
+      getAllData: function(con, callback) {
+        if(!con) {
+          console.error('ERR: a connection is required!');
+          return;
+        }
+
+        var key = this._getKey(con);
+
+        key.get().then(function(res) {
+          if(callback) {
+            callback(res.value);
+          }
+
+          return res.value;
+        });
+      },
+
+      /*
+       * Add new data to specified key
+       * Requires connection promise results, key name and value to be saved
+       */
+      addData: function(con, val, callback) {
+        var key = this._getKey(con);
+
+        key.add(val, function(err, newValue) {
+          if(err) {
+            console.error('ERR: ' + err);
+
+            return err;
+          }
+
+          if(callback) {
+            callback(newValue);
+          }
+
+          return newValue;
+        });
+      }
+    });
+  </script>
+</polymer-element>

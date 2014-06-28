@@ -14,7 +14,7 @@
        * Connect to goinstant app
        * Returns promise
        */
-      connect: function() {
+      connect: function(callback) {
         var url = 'https://goinstant.net/' + this.account + '/' + this.app;
 
         var opts = {};
@@ -23,50 +23,7 @@
           opts.room = this.room;
         }
 
-        return goinstant.connect(url, opts);
-      },
-
-      /*
-       * Get all data from specified key
-       * Requires connection promise result and key name
-       */
-      getAllData: function(con, roomKey, callback) {
-        if(!con || !roomKey) {
-          console.error('ERR: connection object and roomKey name is required');
-          return;
-        }
-
-        var key = con.rooms[0].key(roomKey);
-
-        key.get().then(function(res) {
-          if(callback) {
-            callback(res.value);
-          }
-
-          return res.value;
-        });
-      },
-
-      /*
-       * Add new data to specified key
-       * Requires connection promise results, key name and value to be saved
-       */
-      addData: function(con, roomKey, val, callback) {
-        var key = con.rooms[0].key(roomKey);
-
-        key.add(val, function(err, newValue) {
-          if(err) {
-            console.error('ERR: ' + err);
-
-            return err;
-          }
-
-          if(callback) {
-            callback(newValue);
-          }
-
-          return newValue;
-        });
+        return goinstant.connect(url, opts, callback);
       }
     });
   </script>
