@@ -9,6 +9,7 @@
       // Placeholders for account and app ids
       key: null,
 
+
       // Get specified key
       _getKey: function(con) {
         return con.rooms[0].key(this.key);
@@ -32,6 +33,24 @@
           }
 
           return res.value;
+        });
+      },
+
+      find: function(con, params, callback) {
+        var key = this._getKey(con);
+
+        var query = key.query(params);
+
+        query.execute(function(err, results) {
+          if (err) {
+            throw err;
+          }
+
+          if(callback) {
+            callback(results);
+          }
+
+          return results;
         });
       },
 

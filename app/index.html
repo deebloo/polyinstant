@@ -43,6 +43,10 @@
           goData.getAllData(res, function(data) {
             console.log(data);
           });
+
+          goData.find(res, {name: 'Danny'}, function(data) {
+            console.log(data);
+          });
         });
       });
     </script>
