@@ -1,0 +1,65 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="go-connect" attributes="account, app">
+  <template></template>
+
+  <script>
+    Polymer({
+      // Placeholders for account and app ids
+      account: 'YOUR_ACCOUNT',
+      app: 'YOUR_APP',
+
+      /*
+       * Connect to goinstant app
+       * Returns promise
+       */
+      connect: function() {
+        var url = 'https://goinstant.net/' + this.account + '/' + this.app;
+
+        return goinstant.connect(url);
+      },
+
+      /*
+       * Get all data from specified key
+       * Requires connection promise result and key name
+       */
+      getAllData: function(con, roomKey) {
+        var key = con.rooms[0].key(roomKey);
+
+        key.get(function(err, value) {
+          if(err) {
+            console.error('ERR: ' + err);
+
+            return err;
+          }
+
+          console.log(value);
+
+          return value;
+        });
+      },
+
+      /*
+       * Add new data to specified key
+       * Requires connection promise results, key name and value to be saved
+       */
+      addData: function(con, roomKey, val) {
+        var that = this;
+
+        var key = con.rooms[0].key(roomKey);
+
+        key.add(val, function(err, newValue) {
+          if(err) {
+            console.error('ERR: ' + err);
+
+            return err;
+          }
+
+          that.getAllData(con, roomKey);
+
+          return newValue;
+        });
+      }
+    });
+  </script>
+</polymer-element>
