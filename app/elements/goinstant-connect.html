@@ -23,7 +23,7 @@
        * Get all data from specified key
        * Requires connection promise result and key name
        */
-      getAllData: function(con, roomKey) {
+      getAllData: function(con, roomKey, callback) {
         var key = con.rooms[0].key(roomKey);
 
         key.get(function(err, value) {
@@ -33,7 +33,9 @@
             return err;
           }
 
-          console.log(value);
+          if(callback) {
+            callback(value);
+          }
 
           return value;
         });

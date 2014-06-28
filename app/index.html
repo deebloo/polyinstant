@@ -27,10 +27,10 @@
 
         // call connect from api
         goConnect.connect()
-          // promise is returned
           .then(function(res) {
-            // call addData to add to the specified key
-            goConnect.addData(res, '/test', 'Sony');
+            goConnect.getAllData(res, '/test', function(data) {
+              console.log(data);
+            });
           });
       });
     </script>
