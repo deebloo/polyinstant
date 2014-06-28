@@ -4,7 +4,7 @@ Polyinstant
 Polymer elements for connecting and manipulating data from goinstant
 
 ```HTML
-<go-connect account="MY_ACCOUNT" app="MY_APP"></go-connect>
+<go-connect account="MY_ACCOUNT" app="MY_APP" room="ROOM_NAME"></go-connect>
 ```
 
 ```JS
