@@ -32,14 +32,14 @@
             goData = document.querySelector('go-data');
 
         // Connect to goinstant
-        goConnect.go().then(function(res) {
+        goConnect.go().then(function(connection) {
           // Gets all data from key
-          goData.getAllData(res, function(data) {
-            console.log(data);
+          goData.getAllData(connection, function(data) {
+            console.log(data.value);
           });
 
           // Query data for matches
-          goData.find(res, {name: 'Danny'}, function(data) {
+          goData.find(connection, {}, function(data) {
             console.log(data);
           });
         });

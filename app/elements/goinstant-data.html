@@ -17,7 +17,7 @@
 
       /*
        * Get all data from specified key
-       * Requires connection promise result and key name
+       * Requires connection promise result
        */
       getAllData: function(con, callback) {
         if(!con) {
@@ -29,13 +29,17 @@
 
         key.get().then(function(res) {
           if(callback) {
-            callback(res.value);
+            callback(res);
           }
 
-          return res.value;
+          return res;
         });
       },
 
+      /*
+       * Query data to get result
+       * Requires connection promise result
+       */
       find: function(con, params, callback) {
         var key = this._getKey(con);
 
