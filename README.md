@@ -22,7 +22,7 @@ window.addEventListener('polymer-ready', function(e) {
   /* Connect to goinstant */
   goConnect.go().then(function(connection) {
     /* Gets all data from key */
-    goData.getAllData(res, function(connection) {
+    goData.getAllData(connection, function(connection) {
       console.log(data);
     });
 
