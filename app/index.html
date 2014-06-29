@@ -30,11 +30,11 @@
 
         goConnect.go().then(function(connection) {
           goData.findAll(connection, function(data) {
-            console.log(data.value); // returns object
+            console.log(data.value);
           });
 
           goData.find(connection, {name: 'Danny'}, function(data) {
-            console.log(data); // returns array
+            console.log(data);
           });
         });
       });

@@ -5,77 +5,84 @@
   <template></template>
 
   <script>
-    function _getKey(con, keyName) {
-      return con.rooms[0].key(keyName);
-    }
-
-    Polymer('go-data', {
-      // Placeholder for key name
-      key: null,
-
+    (function() {
       /*
-       * Get all data from specified key
-       * Requires connection promise result
-       * returns object
+       * Start Private functions
        */
-      findAll: function(con, callback) {
-        if(!con) {
-          throw 'ERR: a connection is required!';
-        }
-
-        var key = _getKey(con, this.key);
-
-        key.get().then(function(res) {
-          if(callback) {
-            callback(res);
-          }
-
-          return res;
-        });
-      },
-
-      /*
-       * Query data to get result
-       * Requires connection promise result
-       * returns array
-       */
-      find: function(con, params, callback) {
-        var key = _getKey(con, this.key);
-
-        var query = key.query(params);
-
-        query.execute(function(err, results) {
-          if (err) {
-            throw err;
-          }
-
-          if(callback) {
-            callback(results);
-          }
-
-          return results;
-        });
-      },
-
-      /*
-       * Add new data to specified key
-       * Requires connection promise results, and value to be saved
-       */
-      add: function(con, val, callback) {
-        var key = _getKey(con, this.key);
-
-        key.add(val, function(err, newValue) {
-          if(err) {
-            throw err;
-          }
-
-          if(callback) {
-            callback(newValue);
-          }
-
-          return newValue;
-        });
+      function _getKey(con, keyName) {
+        return con.rooms[0].key(keyName);
       }
-    });
+
+      /*
+       * Return public polymer object
+       */
+      return Polymer('go-data', {
+        key: null, // Placeholder for key name
+
+        /*
+         * Get all data from specified key
+         * Requires connection promise result
+         * returns object
+         */
+        findAll: function(con, callback) {
+          if(!con) {
+            throw 'ERR: a connection is required!';
+          }
+
+          var key = _getKey(con, this.key);
+
+          key.get().then(function(res) {
+            if(callback) {
+              callback(res);
+            }
+
+            return res;
+          });
+        },
+
+        /*
+         * Query data to get result
+         * Requires connection promise result
+         * returns array
+         */
+        find: function(con, params, callback) {
+          var key = _getKey(con, this.key);
+
+          var query = key.query(params);
+
+          query.execute(function(err, results) {
+            if (err) {
+              throw err;
+            }
+
+            if(callback) {
+              callback(results);
+            }
+
+            return results;
+          });
+        },
+
+        /*
+         * Add new data to specified key
+         * Requires connection promise results, and value to be saved
+         */
+        add: function(con, val, callback) {
+          var key = _getKey(con, this.key);
+
+          key.add(val, function(err, newValue) {
+            if(err) {
+              throw err;
+            }
+
+            if(callback) {
+              callback(newValue);
+            }
+
+            return newValue;
+          });
+        }
+      });
+    })();
   </script>
 </polymer-element>
