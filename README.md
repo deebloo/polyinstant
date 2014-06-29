@@ -6,6 +6,8 @@ Give your account number and app name. If no room is given the 'lobby' will be j
 
 ```HTML
 <go-connect account="MY_ACCOUNT" app="MY_APP" room="ROOM_NAME"></go-connect>
+
+<go-data key="KEY_NAME"></go-data>
 ```
 
 ```JS
