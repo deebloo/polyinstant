@@ -24,7 +24,7 @@ window.addEventListener('polymer-ready', function(e) {
    * returns promise and fires callback
    */
   goConnect.go(function() {
-    alert('connected! look at console to see data');
+    alert('connected!');
   })
   .then(function(res) {
     // pass the result to the goData api and return the results
