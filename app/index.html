@@ -24,22 +24,15 @@
     <script src="https://cdn.goinstant.net/v1/platform.min.js"></script>
     <script>
       window.addEventListener('polymer-ready', function(e) {
-        /*
-         * Get reference to the connection element
-         * Get reference to the data connection
-         */
         var goConnect = document.querySelector('go-connect'),
             goData = document.querySelector('go-data');
 
-        // Connect to goinstant
         goConnect.go().then(function(connection) {
-          // Gets all data from key
           goData.getAllData(connection, function(data) {
             console.log(data.value);
           });
 
-          // Query data for matches
-          goData.find(connection, {}, function(data) {
+          goData.find(connection, {name: 'Danny'}, function(data) {
             console.log(data);
           });
         });

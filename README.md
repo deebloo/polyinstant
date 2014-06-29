@@ -20,14 +20,14 @@ window.addEventListener('polymer-ready', function(e) {
       goData = document.querySelector('go-data');
 
   /* Connect to goinstant */
-  goConnect.go().then(function(res) {
+  goConnect.go().then(function(connection) {
     /* Gets all data from key */
-    goData.getAllData(res, function(data) {
+    goData.getAllData(res, function(connection) {
       console.log(data);
     });
 
     /* Query data for matches */
-    goData.find(res, {name: 'Danny'}, function(data) {
+    goData.find(connection, {name: 'Danny'}, function(data) {
       console.log(data);
     });
   });

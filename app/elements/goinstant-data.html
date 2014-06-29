@@ -9,7 +9,6 @@
       // Placeholders for account and app ids
       key: null,
 
-
       // Get specified key
       _getKey: function(con) {
         return con.rooms[0].key(this.key);
@@ -60,7 +59,7 @@
 
       /*
        * Add new data to specified key
-       * Requires connection promise results, key name and value to be saved
+       * Requires connection promise results, and value to be saved
        */
       addData: function(con, val, callback) {
         var key = this._getKey(con);
