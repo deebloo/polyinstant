@@ -5,14 +5,13 @@
   <template></template>
 
   <script>
-    Polymer('go-data', {
-      // Placeholders for account and app ids
-      key: null,
+    function _getKey(con, keyName) {
+      return con.rooms[0].key(keyName);
+    }
 
-      // Get specified key
-      _getKey: function(con) {
-        return con.rooms[0].key(this.key);
-      },
+    Polymer('go-data', {
+      // Placeholder for key name
+      key: null,
 
       /*
        * Get all data from specified key
@@ -24,7 +23,7 @@
           throw 'ERR: a connection is required!';
         }
 
-        var key = this._getKey(con);
+        var key = _getKey(con, this.key);
 
         key.get().then(function(res) {
           if(callback) {
@@ -41,7 +40,7 @@
        * returns array
        */
       find: function(con, params, callback) {
-        var key = this._getKey(con);
+        var key = _getKey(con, this.key);
 
         var query = key.query(params);
 
@@ -63,7 +62,7 @@
        * Requires connection promise results, and value to be saved
        */
       add: function(con, val, callback) {
-        var key = this._getKey(con);
+        var key = _getKey(con, this.key);
 
         key.add(val, function(err, newValue) {
           if(err) {
