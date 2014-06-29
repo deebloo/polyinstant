@@ -25,7 +25,7 @@ window.addEventListener('polymer-ready', function(e) {
     alert('connected! look at console to see data');
   })
   .then(function(res) {
-  // pass the result to the goData api and return the results
+    // pass the result to the goData api and return the results
     goData.getAllData(res, function(data) {
       console.log(data);
     });
