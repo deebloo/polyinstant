@@ -17,11 +17,11 @@
       /*
        * Get all data from specified key
        * Requires connection promise result
+       * returns object
        */
-      getAllData: function(con, callback) {
+      findAll: function(con, callback) {
         if(!con) {
-          console.error('ERR: a connection is required!');
-          return;
+          throw 'ERR: a connection is required!';
         }
 
         var key = this._getKey(con);
@@ -38,6 +38,7 @@
       /*
        * Query data to get result
        * Requires connection promise result
+       * returns array
        */
       find: function(con, params, callback) {
         var key = this._getKey(con);
@@ -61,14 +62,12 @@
        * Add new data to specified key
        * Requires connection promise results, and value to be saved
        */
-      addData: function(con, val, callback) {
+      add: function(con, val, callback) {
         var key = this._getKey(con);
 
         key.add(val, function(err, newValue) {
           if(err) {
-            console.error('ERR: ' + err);
-
-            return err;
+            throw err;
           }
 
           if(callback) {
