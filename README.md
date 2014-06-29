@@ -16,22 +16,17 @@ window.addEventListener('polymer-ready', function(e) {
    * Get reference to the connection element
    * Get reference to the data connection
    */
-  var goConnect = document.querySelector('go-connect');
-  var goData = document.querySelector('go-data');
+  var goConnect = document.querySelector('go-connect'),
+      goData = document.querySelector('go-data');
 
-  /*
-   * Connect to goinstant
-   * returns promise and fires callback
-   */
-  goConnect.go(function() {
-    alert('connected!');
-  })
-  .then(function(res) {
-    // pass the result to the goData api and return the results
+  // Connect to goinstant
+  goConnect.go().then(function(res) {
+    // Gets all data from key
     goData.getAllData(res, function(data) {
       console.log(data);
     });
 
+    // Query data for matches
     goData.find(res, {name: 'Danny'}, function(data) {
       console.log(data);
     });

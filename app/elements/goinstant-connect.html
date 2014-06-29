@@ -14,7 +14,7 @@
        * Connect to goinstant app
        * Returns promise
        */
-      go: function(callback) {
+      go: function() {
         var url = 'https://goinstant.net/' + this.account + '/' + this.app;
 
         var opts = {};
@@ -27,7 +27,7 @@
           opts.room = this.room;
         }
 
-        return goinstant.connect(url, opts, callback);
+        return goinstant.connect(url, opts);
       }
     });
   </script>
