@@ -1,3 +1,24 @@
+<!--
+  Go Instant data element.
+
+  Requires the go-connect element.
+
+  Ex: <go-data key="/test"></go-data>
+
+  <go-connect account="ACCOUNT_NUMBER" app="APP_NAME" room="ROOM_NAME"></go-connect>
+
+  <script>
+    var goConnect = document.querySelector('go-connect'),
+        goData = document.querySelector('go-data');
+
+    goConnect.go().then(function(connection) {
+      goData.findAll(connection, function(data) {
+        console.log(data.value);
+      });
+    });
+  </script>
+-->
+
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="goinstant-connect.html">
 
@@ -41,7 +62,7 @@
         },
 
         /*
-         * Query data to get result
+         * Get queried data from specified
          * Requires connection promise result
          * returns array
          */

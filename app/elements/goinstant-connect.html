@@ -1,3 +1,21 @@
+<!--
+  Go Instant connection element.
+
+  Connects to your go instant app and joins a room.
+  Will join lobby my default if no room is defined.
+  Returns the connection promise object which can be used for the rest of the api.
+
+  Ex: <go-connect account="ACCOUNT_NUMBER" app="APP_NAME" room="ROOM_NAME"></go-connect>
+
+  <script>
+    var goConnect = document.querySelector('go-connect');
+
+    goConnect.go().then(function(connection) {
+      // do something with connection
+    });
+  </script>
+-->
+
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
 <polymer-element name="go-connect" attributes="account app room">
