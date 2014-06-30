@@ -81,6 +81,15 @@
 
             return newValue;
           });
+        },
+
+        /*
+         * Delete specified data from key
+         */
+        delete: function(con, id) {
+          var parentKey = _getKey(con, this.key);
+
+          parentKey.key(id).remove();
         }
       });
     })();
