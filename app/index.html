@@ -29,13 +29,23 @@
             goData = document.querySelector('go-data');
 
         goConnect.go().then(function(connection) {
+          /*
+           * Find all data from Key
+           */
           goData.findAll(connection, function(data) {
             console.log(data.value);
           });
 
+          /*
+           * Find specified data based on query
+           */
           goData.find(connection, {name: 'Danny'}, function(data) {
             console.log(data);
           });
+
+          /*
+           * Delete specified data from key
+           */
 
           // goData.delete(connection, 'id-146e4bcd515-000-0');
         });
