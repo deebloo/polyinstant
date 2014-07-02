@@ -47,6 +47,30 @@
         return con.rooms[0].key(keyName);
       }
 
+      function _findAll(account, app, room, key) {
+        var con = _connect(account, app, room);
+
+        if(!con) {
+          throw 'ERR: a connection is required!';
+        }
+
+        var roomKey = key, data;
+
+        con.then(function(connection) {
+          alert('connected!');
+
+          var key = _getKey(connection, roomKey);
+
+          key.get().then(function(res) {
+            alert('data retrieved');
+
+            console.log(res.value);
+
+            return res.value;
+          });
+        });
+      }
+
       /*
        * Return public polymer object
        */
@@ -55,39 +79,9 @@
         app: null,
         room: null,
         key: null,
-        callback: null,
-
-        /*
-         * Get all data from specified key
-         * Requires connection promise result
-         * returns object
-         */
-        findAll: function() {
-          var con = _connect(this.account, this.app, this.room);
-
-          if(!con) {
-            throw 'ERR: a connection is required!';
-          }
-
-          var that = this;
-
-          con.then(function(connection) {
-            alert('connected!');
-
-            var key = _getKey(connection, that.key);
-
-            key.get().then(function(res) {
-              alert('data retrieved');
-
-              console.log(res.value);
-
-              return res.value;
-            });
-          });
-        },
 
         ready: function() {
-          this.findAll(this.key);
+          _findAll(this.account, this.app, this.room, this.key);
         }
       });
     })();
