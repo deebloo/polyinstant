@@ -55,6 +55,7 @@
         app: null,
         room: null,
         key: null,
+        callback: null,
 
         /*
          * Get all data from specified key
@@ -76,9 +77,11 @@
             var key = _getKey(connection, that.key);
 
             key.get().then(function(res) {
+              alert('data retrieved');
+
               console.log(res.value);
 
-              return res;
+              return res.value;
             });
           });
         },
