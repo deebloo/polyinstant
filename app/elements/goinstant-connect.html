@@ -23,29 +23,13 @@
     (function() {
       return Polymer('go-connect', {
         // Placeholders for account and app ids
-        account: null,
-        app: null,
-        room: null,
+
 
         /*
          * Connect to goinstant app
          * Returns promise
          */
-        go: function() {
-          var url = 'https://goinstant.net/' + this.account + '/' + this.app;
 
-          var opts = {};
-
-          /*
-           * If room is defined connect to it
-           * otherwise connect to lobby
-           */
-          if(this.room) {
-            opts.room = this.room;
-          }
-
-          return goinstant.connect(url, opts);
-        }
       });
     })();
   </script>
