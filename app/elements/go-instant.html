@@ -62,8 +62,6 @@
          * returns object
          */
         findAll: function(callback) {
-          alert('Find all fired');
-
           var that = this;
 
           _getConnection(this.account, this.app, this.room).then(function(connection) {
@@ -71,13 +69,9 @@
               throw 'ERR: a connection is required!';
             }
 
-            alert('connected');
-
             var key = _getKey(connection, that.key);
 
             key.get().then(function(res) {
-              alert('Data Retrieved');
-
               if(callback) {
                 callback(res);
               }
@@ -92,21 +86,25 @@
          * Requires connection promise result
          * returns array
          */
-        find: function(con, params, callback) {
-          var key = _getKey(con, this.key);
+        find: function(params, callback) {
+          var that = this;
 
-          var query = key.query(params);
+          _getConnection(this.account, this.app, this.room).then(function(connection) {
+            var key = _getKey(connection, that.key);
 
-          query.execute(function(err, results) {
-            if (err) {
-              throw err;
-            }
+            var query = key.query(params);
 
-            if(callback) {
-              callback(results);
-            }
+            query.execute(function (err, res) {
+              if (err) {
+                throw err;
+              }
 
-            return results;
+              if (callback) {
+                callback(res);
+              }
+
+              return res;
+            });
           });
         },
 
@@ -114,29 +112,41 @@
          * Add new data to specified key
          * Requires connection promise results, and value to be saved
          */
-        add: function(con, val, callback) {
-          var key = _getKey(con, this.key);
+        add: function(val, callback) {
+          var that = this;
 
-          key.add(val, function(err, newValue) {
-            if(err) {
-              throw err;
-            }
+          _getConnection(this.account, this.app, this.room).then(function(connection) {
+            var key = _getKey(connection, that.key);
 
-            if(callback) {
-              callback(newValue);
-            }
+            key.add(val, function (err, newValue) {
+              if (err) {
+                throw err;
+              }
 
-            return newValue;
+              if (callback) {
+                callback(newValue);
+              }
+
+              return newValue;
+            });
           });
         },
 
         /*
          * Delete specified data from key
          */
-        remove: function(con, id) {
-          var parentKey = _getKey(con, this.key);
+        remove: function(id, callback) {
+          var that = this;
 
-          parentKey.key(id).remove();
+          _getConnection(this.account, this.app, this.room).then(function(connection) {
+            var parentKey = _getKey(connection, that.key);
+
+            parentKey.key(id).remove();
+
+            if(callback) {
+              callback();
+            }
+          });
         }
       });
     })();

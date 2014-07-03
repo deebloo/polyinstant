@@ -24,9 +24,18 @@
     <script>
       window.addEventListener('polymer-ready', function(e) {
 
-        document.querySelector('go-instant').findAll(function(res) {
+        var goInstant =  document.querySelector('go-instant');
+
+        goInstant.findAll(function(res) {
           console.log(res);
         });
+
+        goInstant.find({name: 'Danny'}, function(res) {
+          console.log(res);
+        });
+
+        // goInstant.add({name: 'Paul', title: 'Genius'});
+        // goInstant.remove('id-146f98e95e2-000-0');
 
       });
     </script>
