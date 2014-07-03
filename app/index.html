@@ -22,9 +22,11 @@
 
     <script src="https://cdn.goinstant.net/v1/platform.min.js"></script>
     <script>
+      var goInstant;
+
       window.addEventListener('polymer-ready', function(e) {
 
-        var goInstant =  document.querySelector('go-instant');
+        goInstant =  document.querySelector('go-instant');
 
         goInstant.findAll(function(res) {
           console.log(res);
@@ -34,7 +36,7 @@
           console.log(res);
         });
 
-        // goInstant.add({name: 'Paul', title: 'Genius'});
+        // goInstant.add({name: 'Paul', title: 'UX Designer'});
         // goInstant.remove('id-146f98e95e2-000-0');
 
       });
