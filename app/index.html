@@ -22,9 +22,11 @@
 
     <script src="https://cdn.goinstant.net/v1/platform.min.js"></script>
     <script>
+      var goInstant;
+
       window.addEventListener('polymer-ready', function(e) {
 
-        var goInstant =  document.querySelector('go-instant');
+        goInstant =  document.querySelector('go-instant');
 
         goInstant.findAll(function(res) {
           console.log(res);
