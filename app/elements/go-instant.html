@@ -18,17 +18,13 @@
   <script>
     (function() {
       /*
-       * Start Private functions
+       * Connect to go instant
        */
       function _getConnection(account, app, room) {
         var url = 'https://goinstant.net/' + account + '/' + app;
 
         var opts = {};
-
-        /*
-         * If room is defined connect to it
-         * otherwise connect to lobby
-         */
+        
         if(room) {
           opts.room = room;
         }
@@ -36,6 +32,9 @@
         return goinstant.connect(url, opts);
       }
 
+      /*
+       * Return desired Key
+       */
       function _getKey(con, keyName) {
         return con.rooms[0].key(keyName);
       }
@@ -47,7 +46,7 @@
         account: null,
         app: null,
         room: null,
-        key: null, // Placeholder for key name
+        key: null,
 
         /*
          * Get all data from specified key
@@ -72,7 +71,7 @@
 
                 return res;
               });
-          });
+            });
         },
 
         /*
@@ -100,7 +99,7 @@
 
                 return res;
               });
-          });
+            });
         },
 
         /*
@@ -125,7 +124,7 @@
 
                 return newValue;
               });
-          });
+            });
         },
 
         /*
@@ -138,11 +137,15 @@
             .then(function(connection) {
               var parentKey = _getKey(connection, keyName);
 
-              parentKey.key(id).remove();
+              parentKey.key(id).remove({ lastValue: true }, function(err, value, context) {
+                if(err) {
+                  throw err;
+                }
 
-              if(callback) {
-                callback();
-              }
+                if(callback) {
+                  callback(value, context);
+                }
+              });
             });
         }
       });

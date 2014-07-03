@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,7 +15,7 @@
   </head>
 
   <body>
-    <go-instant account="773bb51eb592" app="WebComponentTest" room="lobby" key="/test"></go-instant>
+    <go-instant account="773bb51eb592" app="WebComponentTest" room="lobby" key="/test2"></go-instant>
 
     <script src="https://cdn.goinstant.net/v1/platform.min.js"></script>
     <script>
@@ -32,7 +29,7 @@
           console.log(res);
         });
 
-        goInstant.find({name: 'Danny'}, function(res) {
+        goInstant.find({title: 'The Walking Dead'}, function(res) {
           console.log(res);
         });
 
