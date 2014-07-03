@@ -139,6 +139,10 @@
               var parentKey = _getKey(connection, keyName);
 
               parentKey.key(id).remove({ lastValue: true } , function(err, value, context) {
+                if(err) {
+                  throw err;
+                }
+
                 if(callback) {
                   callback(value, context);
                 }
