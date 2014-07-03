@@ -1,21 +1,14 @@
 <!--
-  Go Instant data element.
+  Go Instant Polymer Element.
 
-  Requires the go-connect element.
-
-  Ex: <go-data key="/test"></go-data>
-
-  <go-connect account="ACCOUNT_NUMBER" app="APP_NAME" room="ROOM_NAME"></go-connect>
+  Ex:  <go-connect account="ACCOUNT_NUMBER" app="APP_NAME" room="ROOM_NAME" key="KEY_NAME"></go-connect>
 
   <script>
-    var goConnect = document.querySelector('go-connect'),
-        goData = document.querySelector('go-data');
+     var goInstant =  document.querySelector('go-instant');
 
-    goConnect.go().then(function(connection) {
-      goData.findAll(connection, function(data) {
-        console.log(data.value);
-      });
-    });
+     goInstant.findAll(function(res) {
+      console.log(res);
+     });
   </script>
 -->
 
@@ -62,22 +55,23 @@
          * returns object
          */
         findAll: function(callback) {
-          var that = this;
+          var keyName = this.key;
 
-          _getConnection(this.account, this.app, this.room).then(function(connection) {
-            if(!connection) {
-              throw 'ERR: a connection is required!';
-            }
-
-            var key = _getKey(connection, that.key);
-
-            key.get().then(function(res) {
-              if(callback) {
-                callback(res);
+          _getConnection(this.account, this.app, this.room)
+            .then(function(connection) {
+              if(!connection) {
+                throw 'ERR: a connection is required!';
               }
 
-              return res;
-            });
+              var key = _getKey(connection, keyName);
+
+              key.get().then(function(res) {
+                if(callback) {
+                  callback(res);
+                }
+
+                return res;
+              });
           });
         },
 
@@ -87,24 +81,25 @@
          * returns array
          */
         find: function(params, callback) {
-          var that = this;
+          var keyName = this.key;
 
-          _getConnection(this.account, this.app, this.room).then(function(connection) {
-            var key = _getKey(connection, that.key);
+          _getConnection(this.account, this.app, this.room)
+            .then(function(connection) {
+              var key = _getKey(connection, keyName);
 
-            var query = key.query(params);
+              var query = key.query(params);
 
-            query.execute(function (err, res) {
-              if (err) {
-                throw err;
-              }
+              query.execute(function (err, res) {
+                if (err) {
+                  throw err;
+                }
 
-              if (callback) {
-                callback(res);
-              }
+                if (callback) {
+                  callback(res);
+                }
 
-              return res;
-            });
+                return res;
+              });
           });
         },
 
@@ -113,22 +108,23 @@
          * Requires connection promise results, and value to be saved
          */
         add: function(val, callback) {
-          var that = this;
+          var keyName = this.key;
 
-          _getConnection(this.account, this.app, this.room).then(function(connection) {
-            var key = _getKey(connection, that.key);
+          _getConnection(this.account, this.app, this.room)
+            .then(function(connection) {
+              var key = _getKey(connection, keyName);
 
-            key.add(val, function (err, newValue) {
-              if (err) {
-                throw err;
-              }
+              key.add(val, function (err, newValue) {
+                if (err) {
+                  throw err;
+                }
 
-              if (callback) {
-                callback(newValue);
-              }
+                if (callback) {
+                  callback(newValue);
+                }
 
-              return newValue;
-            });
+                return newValue;
+              });
           });
         },
 
@@ -136,17 +132,18 @@
          * Delete specified data from key
          */
         remove: function(id, callback) {
-          var that = this;
+          var keyName = this.key;
 
-          _getConnection(this.account, this.app, this.room).then(function(connection) {
-            var parentKey = _getKey(connection, that.key);
+          _getConnection(this.account, this.app, this.room)
+            .then(function(connection) {
+              var parentKey = _getKey(connection, keyName);
 
-            parentKey.key(id).remove();
+              parentKey.key(id).remove();
 
-            if(callback) {
-              callback();
-            }
-          });
+              if(callback) {
+                callback();
+              }
+            });
         }
       });
     })();
