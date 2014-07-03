@@ -47,7 +47,7 @@
         account: null,
         app: null,
         room: null,
-        key: null, // Placeholder for key name
+        key: null,
 
         /*
          * Get all data from specified key
@@ -138,7 +138,7 @@
             .then(function(connection) {
               var parentKey = _getKey(connection, keyName);
 
-              parentKey.key(id).remove({ lastValue: true } , function(err, value, context) {
+              parentKey.key(id).remove({ lastValue: true }, function(err, value, context) {
                 if(err) {
                   throw err;
                 }
