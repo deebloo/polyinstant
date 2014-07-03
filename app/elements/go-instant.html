@@ -138,11 +138,11 @@
             .then(function(connection) {
               var parentKey = _getKey(connection, keyName);
 
-              parentKey.key(id).remove();
-
-              if(callback) {
-                callback();
-              }
+              parentKey.key(id).remove({ lastValue: true } , function(err, value, context) {
+                if(callback) {
+                  callback(value, context);
+                }
+              });
             });
         }
       });
