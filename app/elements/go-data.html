@@ -1,0 +1,56 @@
+<polymer-element name="go-data" attributes="key">
+  <template></template>
+
+  <script>
+    (function() {
+      /*
+       * Return desired Key
+       */
+      function _getKey(con, keyName) {
+        return con.rooms[0].key(keyName);
+      }
+
+      /*
+       * Return all data from key
+       */
+      function _findAll(key, callback) {
+        key.get().then(function(res) {
+
+          if(callback) {
+            callback(res);
+          }
+
+          return res.value;
+        });
+      }
+
+      Polymer('go-data', {
+        key: null,
+
+        ready: function() {
+          this.addEventListener('gotKey', function(key) {
+
+            _findAll(key.detail.key, function(res) {
+
+              this.fire('gotData', {data: res});
+
+              console.log(res);
+
+            }.bind(this));
+
+          });
+
+          document.addEventListener('connected', function(con) {
+
+            alert('connected');
+
+            var key = _getKey(con.detail.connection, this.key);
+
+            this.fire('gotKey', {key: key});
+
+          }.bind(this));
+        }
+      });
+    })();
+  </script>
+</polymer-element>

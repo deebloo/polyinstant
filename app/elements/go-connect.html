@@ -1,0 +1,46 @@
+<polymer-element name="go-connect" attributes="account app room">
+  <template></template>
+
+  <script>
+    (function() {
+      /*
+       * Connect to go instant
+       */
+      function _getConnection(account, app, room, callback) {
+        var url = 'https://goinstant.net/' + account + '/' + app;
+
+        var opts = {};
+
+        if(room) {
+          opts.room = room;
+        }
+
+        var connection = goinstant.connect(url, opts);
+
+        if(callback) {
+          callback(connection);
+        }
+
+        return connection;
+      }
+
+      Polymer('go-connect', {
+        account: null,
+        app: null,
+        room: null,
+
+        attached: function() {
+          _getConnection(this.account, this.app, this.room, function(con) {
+
+            con.then(function(res) {
+
+              this.fire('connected', {connection: res});
+
+            }.bind(this));
+
+          }.bind(this));
+        }
+      });
+    })();
+  </script>
+</polymer-element>
