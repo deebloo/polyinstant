@@ -21,4 +21,5 @@ window.addEventListener('polymer-ready', function(e) {
     // goInstant.remove('id-146f98e95e2-000-0');
     
 });
+
 ```

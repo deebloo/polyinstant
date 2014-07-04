@@ -15,28 +15,8 @@
   </head>
 
   <body>
-    <go-instant account="773bb51eb592" app="WebComponentTest" room="lobby" key="/test2"></go-instant>
+    <go-instant account="773bb51eb592" app="WebComponentTest" room="lobby" key="/test"></go-instant>
 
     <script src="https://cdn.goinstant.net/v1/platform.min.js"></script>
-    <script>
-      var goInstant;
-
-      window.addEventListener('polymer-ready', function(e) {
-
-        goInstant = document.querySelector('go-instant');
-
-        goInstant.findAll(function(res) {
-          console.log(res);
-        });
-
-        goInstant.find({title: 'The Walking Dead'}, function(res) {
-          console.log(res);
-        });
-
-        // goInstant.add({name: 'Paul', title: 'Genius'});
-        // goInstant.remove('id-146f98e95e2-000-0');
-
-      });
-    </script>
   </body>
 </html>
