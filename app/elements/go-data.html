@@ -34,15 +34,11 @@
 
               this.fire('gotData', {data: res});
 
-              console.log(res);
-
             }.bind(this));
 
           });
 
           document.addEventListener('connected', function(con) {
-
-            alert('connected');
 
             var key = _getKey(con.detail.connection, this.key);
 
