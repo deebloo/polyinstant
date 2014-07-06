@@ -1,4 +1,4 @@
-<polymer-element name="go-data" attributes="key">
+<polymer-element name="go-data" attributes="key query">
   <template></template>
 
   <script>
@@ -10,27 +10,55 @@
         return con.rooms[0].key(keyName);
       }
 
+//      /*
+//       * Return all data from key
+//       */
+//      function _findAll(key, callback) {
+//        key.get().then(function(res) {
+//
+//          if(callback) {
+//            callback(res);
+//          }
+//
+//          return res.value;
+//        });
+//      }
+
       /*
-       * Return all data from key
+       * Return queried data from key
        */
-      function _findAll(key, callback) {
-        key.get().then(function(res) {
+      function _find(key, params, callback) {
+        var queryString;
+
+        if(params) {
+          queryString = JSON.parse( params.replace(/\'/g, "\"") );
+        } else {
+         queryString = {};
+        }
+
+        var query = key.query( queryString );
+
+        query.execute(function(err, res) {
+          if (err) {
+            throw err;
+          }
 
           if(callback) {
             callback(res);
           }
 
-          return res.value;
+          return res;
         });
       }
 
       Polymer('go-data', {
         key: null,
+        query: null,
 
         ready: function() {
           this.addEventListener('gotKey', function(key) {
 
-            _findAll(key.detail.key, function(res) {
+            _find(key.detail.key, this.query, function(res) {
 
               this.fire('gotData', {data: res});
 
