@@ -72,15 +72,47 @@
         connection: null,
         roomKey: null,
 
+        /*
+         * mark if element is initialized
+         */
+        initialized: false,
+
+        /*
+         * If key attribute is changed find data
+         */
+        keyChanged: function() {
+          if(this.initialized) {
+            this.roomKey = _getKey(this.connection, this.key);
+
+            this.findHelper();
+          }
+        },
+
+        /*
+         * If query attribute is changed find data
+         */
+        queryChanged: function() {
+          if(this.initialized) {
+            this.findHelper();
+          }
+        },
+
+        /*
+         * Set _find callback so that it fires the 'gotData' event
+         */
+        findHelper: function() {
+          _find(this.roomKey, this.query, function(res) {
+
+            this.fire('gotData', {data: res});
+
+          }.bind(this));
+        },
+
         attached: function() {
           this.addEventListener('gotKey', function() {
+            this.initialized = true; //after data is found set initialized to true
 
-            _find(this.roomKey, this.query, function(res) {
-
-              this.fire('gotData', {data: res});
-
-            }.bind(this));
-
+            this.findHelper();
           });
 
           document.addEventListener('connected', function(con) {
