@@ -9,7 +9,7 @@ Give the desired key and query parameters. If not query parameters are given all
 ```HTML
 <go-connect account="773bb51eb592" app="WebComponentTest" room="lobby"></go-connect>
 
-<go-data key="/test2" query={'author': 'Stan Lee'}></go-data>
+<go-data key="/test2" query="{'author': 'Stan Lee'}"></go-data>
 ```
 
 ```JS
