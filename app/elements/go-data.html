@@ -15,7 +15,7 @@
   Events Emitted: 'gotKey', 'gotData'
 -->
 
-<polymer-element name="go-data" extends="go-connect" attributes="key query">
+<polymer-element name="go-data" extends="go-connect" attributes="key query order">
   <template></template>
 
   <script>
@@ -30,8 +30,8 @@
       /*
        * Return queried data from key
        */
-      function _find(key, params, callback) {
-        var queryString;
+      function _find(key, params, order, callback) {
+        var queryString, orderString;
 
         /*
          * If params are set format into parsable JSON
@@ -43,12 +43,20 @@
          queryString = {};
         }
 
-        var query = key.query( queryString );
+        if(order) {
+          orderString = JSON.parse( order.replace(/\'/g, "\"") );
+        } else {
+          orderString = {};
+        }
+
+        var query = key.query( queryString, {sort: orderString} );
 
         query.execute(function(err, res) {
           if (err) { throw err; }
 
-          if(callback) { callback(res); }
+          if(callback) {
+            callback(res);
+          }
 
           return res;
         });
@@ -62,7 +70,7 @@
          * Set _find callback so that it fires the 'gotData' event
          */
         findHelper: function() {
-          _find(this.roomKey, this.query, function(res) {
+          _find(this.roomKey, this.query, this.order, function(res) {
 
             this.fire('gotData', {data: res});
 
@@ -74,6 +82,7 @@
          */
         key: null,
         query: null,
+        order: null,
 
         /*
          * Containers for connection and roomKey
@@ -119,13 +128,11 @@
           });
 
           document.addEventListener('connected', function(con) {
-
             this.connection = con.detail.connection; // Save connection to be used later
 
             this.roomKey = _getKey(this.connection, this.key); // Save roomKey to be used later
 
             this.fire('gotKey', {key: this.roomKey}); // Fire 'gotKey' event and pass saved key in
-
           }.bind(this));
         }
       });

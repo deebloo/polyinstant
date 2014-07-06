@@ -3,6 +3,7 @@
 
   Connects to your go instant app and joins a room.
   Will join lobby my default if no room is defined.
+  Will trigger 'connected' even on attach and when room is changed
 
   Ex: <go-connect account="ACCOUNT_NUMBER" app="APP_NAME" room="ROOM_NAME"></go-connect>
 
@@ -36,20 +37,38 @@
       }
 
       Polymer('go-connect', {
-        account: null,
-        app: null,
-        room: null,
-
-        attached: function() {
+        getConnectionHelper: function(callback) {
           _getConnection(this.account, this.app, this.room, function(con) {
 
             con.then(function(res) {
+
+              if(callback) {
+                callback();
+              }
 
               this.fire('connected', {connection: res});
 
             }.bind(this));
 
           }.bind(this));
+        },
+
+        account: null,
+        app: null,
+        room: null,
+
+        connectionInit: false,
+
+        roomChanged: function() {
+          if(this.connectionInit) {
+            this.getConnectionHelper();
+          }
+        },
+
+        attached: function() {
+          this.getConnectionHelper(function() {
+            this.connectionInit = true;
+          });
         }
       });
     })();
