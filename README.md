@@ -23,8 +23,6 @@ data.addEventListener('gotData', function(res) {
 
 To trigger a new query simply change the query value.
 The change will trigger the same 'gotData' event.
-
-Ex: 
 ```JS
 data.query = "{'author': 'Robert Kirkman'}"
 ```
