@@ -107,7 +107,10 @@
             this.findHelper();
           }
         },
-
+        
+        /*
+         * When element is attached listen for the 'connected' and 'gotKey' events
+         */
         attached: function() {
           this.addEventListener('gotKey', function() {
             this.initialized = true; //after data is found set initialized to true
