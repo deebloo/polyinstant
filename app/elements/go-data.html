@@ -33,6 +33,10 @@
       function _find(key, params, callback) {
         var queryString;
 
+        /*
+         * If params are set format into parsable JSON
+         * If not set query string to and empty object
+         */
         if(params) {
           queryString = JSON.parse( params.replace(/\'/g, "\"") );
         } else {
@@ -42,13 +46,9 @@
         var query = key.query( queryString );
 
         query.execute(function(err, res) {
-          if (err) {
-            throw err;
-          }
+          if (err) { throw err; }
 
-          if(callback) {
-            callback(res);
-          }
+          if(callback) { callback(res); }
 
           return res;
         });
@@ -58,6 +58,17 @@
        * Public polymer methods
        */
       Polymer('go-data', {
+        /*
+         * Set _find callback so that it fires the 'gotData' event
+         */
+        findHelper: function() {
+          _find(this.roomKey, this.query, function(res) {
+
+            this.fire('gotData', {data: res});
+
+          }.bind(this));
+        },
+
         /*
          * Defaults for key and query
          */
@@ -82,7 +93,7 @@
          */
         keyChanged: function() {
           if(this.initialized) {
-            this.roomKey = _getKey(this.connection, this.key);
+            this.roomKey = _getKey(this.connection, this.key); // Set new key
 
             this.findHelper();
           }
@@ -97,31 +108,20 @@
           }
         },
 
-        /*
-         * Set _find callback so that it fires the 'gotData' event
-         */
-        findHelper: function() {
-          _find(this.roomKey, this.query, function(res) {
-
-            this.fire('gotData', {data: res});
-
-          }.bind(this));
-        },
-
         attached: function() {
           this.addEventListener('gotKey', function() {
             this.initialized = true; //after data is found set initialized to true
 
-            this.findHelper();
+            this.findHelper(); // Find data
           });
 
           document.addEventListener('connected', function(con) {
 
-            this.connection = con.detail.connection;
+            this.connection = con.detail.connection; // Save connection to be used later
 
-            this.roomKey = _getKey(this.connection, this.key);
+            this.roomKey = _getKey(this.connection, this.key); // Save roomKey to be used later
 
-            this.fire('gotKey', {key: this.roomKey});
+            this.fire('gotKey', {key: this.roomKey}); // Fire 'gotKey' event and pass saved key in
 
           }.bind(this));
         }

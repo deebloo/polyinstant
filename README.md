@@ -1,8 +1,10 @@
 Polyinstant
 ==========
 
-Polymer element for connecting and manipulating data from goinstant.
+Polymer elements for connecting and manipulating data from goinstant.
 Give your account number and app name. If no room is given the 'lobby' will be joined.
+
+Give the desired key and query parameters. If not query parameters are given all data from the specified key will be retrieved.
 
 ```HTML
 <go-connect account="773bb51eb592" app="WebComponentTest" room="lobby"></go-connect>
@@ -18,3 +20,12 @@ data.addEventListener('gotData', function(res) {
 });
 
 ```
+
+To trigger a new query simple change the query value.
+The change will trigger the same 'gotData' event.
+
+Ex: 
+```JS
+data.query = "{'author': 'Robert Kirkman'}"
+```
+(NOTE: the query parameter MUST be a string and is parsed before being send to goinstant)
