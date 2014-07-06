@@ -21,7 +21,7 @@ data.addEventListener('gotData', function(res) {
 
 ```
 
-To trigger a new query simple change the query value.
+To trigger a new query simply change the query value.
 The change will trigger the same 'gotData' event.
 
 Ex: 
