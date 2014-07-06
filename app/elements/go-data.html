@@ -10,20 +10,6 @@
         return con.rooms[0].key(keyName);
       }
 
-//      /*
-//       * Return all data from key
-//       */
-//      function _findAll(key, callback) {
-//        key.get().then(function(res) {
-//
-//          if(callback) {
-//            callback(res);
-//          }
-//
-//          return res.value;
-//        });
-//      }
-
       /*
        * Return queried data from key
        */
@@ -51,14 +37,28 @@
         });
       }
 
+      /*
+       * Public polymer methods
+       */
       Polymer('go-data', {
+        /*
+         * Defaults for key and query
+         */
         key: null,
         query: null,
 
-        ready: function() {
-          this.addEventListener('gotKey', function(key) {
+        /*
+         * Containers for connection and roomKey
+         * Store here for later use without going through entire
+         * connection process again
+         */
+        connection: null,
+        roomKey: null,
 
-            _find(key.detail.key, this.query, function(res) {
+        ready: function() {
+          this.addEventListener('gotKey', function() {
+
+            _find(this.roomKey, this.query, function(res) {
 
               this.fire('gotData', {data: res});
 
@@ -67,10 +67,12 @@
           });
 
           document.addEventListener('connected', function(con) {
+            
+            this.connection = con.detail.connection;
 
-            var key = _getKey(con.detail.connection, this.key);
+            this.roomKey = _getKey(this.connection, this.key);
 
-            this.fire('gotKey', {key: key});
+            this.fire('gotKey', {key: this.roomKey});
 
           }.bind(this));
         }
