@@ -18,7 +18,6 @@ var data = document.querySelector('go-data');
 data.addEventListener('gotData', function(res) {
     console.log(res.detail.data);
 });
-
 ```
 
 To trigger a new query simply change the query value. (and likewise for key)
