@@ -26,4 +26,4 @@ The change will trigger the same 'gotData' event.
 ```JS
 data.query = "{'author': 'Robert Kirkman'}"
 ```
-(NOTE: the query parameter MUST be a string and is parsed before being send to goinstant)
+(NOTE: the query parameter MUST be a string and is parsed before being sent to goinstant)
