@@ -1,4 +1,21 @@
-<polymer-element name="go-data" attributes="key query">
+<!--
+  Go Instant data element.
+
+  Uses connection to go get queried data from specified key.
+  Requires the go-connect element.
+
+  Ex: <go-data key="/test" query="{'author': 'Stan Lee'}"></go-data>
+
+  <script>
+    document.querySelector('go-data').addEventListener('gotData', function(res) {
+      console.log(res.detail.data);
+    });
+  </script>
+
+  Events Emitted: 'gotKey', 'gotData'
+-->
+
+<polymer-element name="go-data" extends="go-connect" attributes="key query">
   <template></template>
 
   <script>
@@ -55,7 +72,7 @@
         connection: null,
         roomKey: null,
 
-        ready: function() {
+        attached: function() {
           this.addEventListener('gotKey', function() {
 
             _find(this.roomKey, this.query, function(res) {
@@ -67,7 +84,7 @@
           });
 
           document.addEventListener('connected', function(con) {
-            
+
             this.connection = con.detail.connection;
 
             this.roomKey = _getKey(this.connection, this.key);
