@@ -11,7 +11,6 @@ Give the desired key and query parameters. If not query parameters are given all
 
 <go-data key="/test2" query="{'author': 'Stan Lee'}" order="{'title': 'asc'}"></go-data>
 ```
-NOTE: look at the goinstant documentation on [filtering](https://developers.goinstant.com/v1/javascript_api/query/filtering.html) to see more details on how to structure your query.
 
 ```JS
 var data = document.querySelector('go-data');
@@ -22,8 +21,8 @@ data.addEventListener('gotData', function(res) {
 ```
 
 To trigger a new query simply change the query value. (and likewise for key)
-The change will trigger the same 'gotData' event.
+The change will trigger the same 'gotData' event. The query parameter MUST be a string and is parsed before being sent to goinstant.
 ```JS
 data.query = "{'author': 'Robert Kirkman'}"
 ```
-NOTE: the query parameter MUST be a string and is parsed before being sent to goinstant.
+NOTE: look at the goinstant documentation on [filtering](https://developers.goinstant.com/v1/javascript_api/query/filtering.html) to see more details on how to structure your query.
