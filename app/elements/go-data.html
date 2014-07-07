@@ -43,6 +43,9 @@
          queryString = {};
         }
 
+        /*
+         * Ditto but for order :P
+         */
         if(order) {
           orderString = JSON.parse( order.replace(/\'/g, "\"") );
         } else {
@@ -52,7 +55,9 @@
         var query = key.query( queryString, {sort: orderString} );
 
         query.execute(function(err, res) {
-          if (err) { throw err; }
+          if (err) {
+            throw err;
+          }
 
           if(callback) {
             callback(res);
@@ -98,11 +103,11 @@
         initialized: false,
 
         /*
-         * If key attribute is changed find data
+         * If key attribute is changed set new key and find data
          */
         keyChanged: function() {
           if(this.initialized) {
-            this.roomKey = _getKey(this.connection, this.key); // Set new key
+            this.roomKey = _getKey(this.connection, this.key);
 
             this.findHelper();
           }
@@ -112,6 +117,15 @@
          * If query attribute is changed find data
          */
         queryChanged: function() {
+          if(this.initialized) {
+            this.findHelper();
+          }
+        },
+
+        /*
+         * If order attribute is changed find data
+         */
+        orderChanged: function() {
           if(this.initialized) {
             this.findHelper();
           }

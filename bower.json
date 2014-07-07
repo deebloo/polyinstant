@@ -12,7 +12,6 @@
     "app/bower_components"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.3.3",
-    "paper-elements": "Polymer/paper-elements#~0.3.3"
+    "polymer": "Polymer/polymer#~0.3.3"
   }
 }
