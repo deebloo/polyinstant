@@ -31,26 +31,24 @@
        * Return queried data from key
        */
       function _find(key, params, order, callback) {
-        var queryString, orderString;
-
         /*
          * If params are set format into parsable JSON
          * If not set query string to and empty object
          */
-        if(params) {
-          queryString = JSON.parse( params.replace(/\'/g, "\"") );
-        } else {
-         queryString = {};
+        function parseQuery(string) {
+          var query;
+
+          if (string) {
+            query = JSON.parse(string.replace(/\'/g, "\""));
+          } else {
+            query = {};
+          }
+
+          return query;
         }
 
-        /*
-         * Ditto but for order :P
-         */
-        if(order) {
-          orderString = JSON.parse( order.replace(/\'/g, "\"") );
-        } else {
-          orderString = {};
-        }
+        var queryString = parseQuery(params);
+        var orderString = parseQuery(order);
 
         var query = key.query( queryString, {sort: orderString} );
 

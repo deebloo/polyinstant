@@ -39,6 +39,7 @@
        * Search is triggered when the attributes on the element change
        */
       var buttons = document.querySelectorAll('button');
+
       function bindButton(index) {
         var data = buttons[index].dataset;
 
@@ -46,6 +47,7 @@
           dataEl.query = data.query;
         });
       }
+
       for(var i = 0; i < buttons.length; i++) {
         bindButton(i)
       }
