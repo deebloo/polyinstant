@@ -1,6 +1,8 @@
 Polyinstant
 ==========
 
+NOTE: GO INSTANT WILL BE SHUTTING DOWN AT THE END OF AUGUST 2014!
+
 Polymer elements for connecting and manipulating data from goinstant.
 Give your account number and app name. If no room is given the 'lobby' will be joined.
 
